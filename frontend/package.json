@@ -1,0 +1,17 @@
+{
+  "name": "docker-frontend",
+  "version": "1.0.0",
+  "description": "Frontend structure widh docker and gulp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "css": "node index.js css",
+    "html": "node index.js html",
+    "js": "node index.js js",
+    "sprites:compile": "node index.js sprites:compile",
+    "copy:sprites": "node index.js copy:sprites",
+    "sprites": "npm run sprites:compile && npm run copy:sprites && npm run css"
+  },
+  "author": "victorjsv",
+  "license": "ISC"
+}
