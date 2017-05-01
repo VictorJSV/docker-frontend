@@ -36,13 +36,13 @@ let dockerAdapter = function () {
 
   Adapter.prototype.generateCommand = function() {
     let command = [
-      "docker run -it",
+      "docker run -t",
       " --rm",
       " --user $(id -u):$(id -g)",
-      " -w ", [this.paths.tasks.docker, "/", this.options.folder].join(""),
       this.paramWatcher,
       " -v ", this.paths.base.project, ":", this.paths.base.docker,
-      " ", [this.paths.server , "/", this.options.image].join(""),
+      " -w ", [this.paths.tasks.docker, "/", this.options.folder].join(""),
+      " ", [this.paths.server, this.options.image].join(""),
       " ", this.instruction,
       " ", this.paramsArgs].join("");
     return command;
@@ -51,7 +51,9 @@ let dockerAdapter = function () {
   Adapter.prototype.execute = function(cmd, cb){
     child_process.exec(cmd, function (error, stdout, stderr) {
       console.info(stdout);
+
       if (error) {
+        console.info(error);
         if (cb) cb(error);
       } else {
         if (cb) cb();

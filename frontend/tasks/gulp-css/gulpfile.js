@@ -7,18 +7,18 @@ const gulp         = require("gulp"),
       postcss      = require("gulp-postcss"),
       csswring     = require("csswring"),
       autoprefixer = require("autoprefixer"),
-      pathFiles    = require("../config/docker-path.js"),
-      functions    = require("../config/functions.js");
+      pathFiles    = require("../../config/docker-path.js"),
+      functions    = require("../../config/functions.js");
 
-gulp.task("default", function () {
-  let processors = [ autoprefixer(), lost() ];
+gulp.task("css", function () {
+  let processors = [ autoprefixer() ];
   if (functions.isProduction()) {
     processors.push(csswring)
   }
-  return gulp.src(pathFiles.input + "/*.styl")
+  return gulp.src(pathFiles.input.styles + "/**/*.styl")
     .pipe(stylus({ use: [rupture()] }))
     .pipe(postcss(processors))
     .pipe(urlVersion({lastcommit: true}))
     .pipe(gulpIf(functions.isGzip, gzip({ append: false  })))
-    .pipe(gulp.dest(pathFiles.output));
+    .pipe(gulp.dest(pathFiles.output.css));
 });

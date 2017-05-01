@@ -4,11 +4,11 @@ const gulp            = require("gulp"),
       recursiveConcat = require("gulp-recursive-concat"),
       babel           = require("gulp-babel"),
       uglify          = require("gulp-uglify"),
-      pathFiles       = require("../config/docker-path.js")
-      functions       = require("../config/functions.js");
+      pathFiles       = require("../../config/docker-path.js")
+      functions       = require("../../config/functions.js");
 
-gulp.task("default", function (cb) {
-  return gulp.src(pathFiles.input + "/**/*.js")
+gulp.task("js", function (cb) {
+  return gulp.src(pathFiles.input.scripts + "/**/*.js")
     .pipe(recursiveConcat({ extname: '.js' }))
     .pipe(babel({ presets: ['es2015'] }))
     .pipe(gulpIf(functions.isProduction, uglify({
@@ -18,6 +18,5 @@ gulp.task("default", function (cb) {
       }
     })))
     .pipe(gulpIf(functions.isGzip, gzip({ append: false  })))
-    .pipe(gulp.dest(pathFiles.output));
-  }
+    .pipe(gulp.dest(pathFiles.output.js));
 });

@@ -1,0 +1,1 @@
+"use strict";var module1=function(){return initialize=function(){},{init:initialize}};module1().init();
