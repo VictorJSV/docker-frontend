@@ -2,7 +2,7 @@
 
 /**
  * Construye la sentencia a ejecutar para levantar la imagen
- * Ej.: docker run -it --rm -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) -e TASK_DIR=tasks/ -v $(pwd)/:/usr/local/app docker.orbis.pe/apt-micro-sprites gulp sprites
+ * Ej.: docker run -t --rm --user $(id -u):$(id -g) -v $(pwd)/..:/usr/local/app -w /usr/local/app/frontend/tasks/gulp-js micro-js gulp js
  */
 
 const dockerPath    = require("./docker-path"),
@@ -62,9 +62,9 @@ let dockerAdapter = function () {
   };
 
   return {
-    run: function(options, instruction){
+    bash: function(options, instruction){
       let adapter = new Adapter(options, instruction);
-      adapter.execute(adapter.generateCommand());
+      return adapter.generateCommand();
     }
   };
 };

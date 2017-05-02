@@ -4,12 +4,14 @@
   "description": "Frontend structure widh docker and gulp",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "css": "node index.js css",
-    "html": "node index.js html",
-    "js": "node index.js js",
-    "build": "npm run css && npm run html && npm run js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=4.8.0"
   },
   "author": "victorjsv",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "runjs": "^3.2.1"
+  }
 }
