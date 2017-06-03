@@ -7,15 +7,15 @@
 let Options = {
   "css": {
     folder: "gulp-css",
-    image : "micro-css"
+    image : "victorjsv/micro-css"
   },
   "html": {
     folder: "gulp-html",
-    image : "micro-html"
+    image : "victorjsv/micro-html"
   },
   "js": {
     folder: "gulp-js",
-    image : "micro-js"
+    image : "victorjsv/micro-js"
   }
 };
 module.exports = Options;

@@ -1,7 +1,6 @@
 "use strict";
 
 let Path = {
-  server: "",
   base  : {},
   config: {},
   tasks : {},

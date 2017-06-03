@@ -5,12 +5,11 @@
  * Ej.: docker run -t --rm --user $(id -u):$(id -g) -v $(pwd)/..:/usr/local/app -w /usr/local/app/frontend/tasks/gulp-js micro-js gulp js
  */
 
-const dockerPath    = require("./docker-path"),
-      child_process = require("child_process");
+const dockerPath    = require("./docker-path");
 
 let dockerAdapter = function () {
   function Adapter(options, instruction) {
-    this.paths        = JSON.parse(JSON.stringify(dockerPath));
+    this.paths        = Object.assign({}, dockerPath);
     this.options      = options || {};
     this.instruction  = instruction || "gulp";
     this.paramsArgs   = this.getArguments();
@@ -42,23 +41,10 @@ let dockerAdapter = function () {
       this.paramWatcher,
       " -v ", this.paths.base.project, ":", this.paths.base.docker,
       " -w ", [this.paths.tasks.docker, "/", this.options.folder].join(""),
-      " ", [this.paths.server, this.options.image].join(""),
+      " ", this.options.image,
       " ", this.instruction,
       " ", this.paramsArgs].join("");
     return command;
-  };
-
-  Adapter.prototype.execute = function(cmd, cb){
-    child_process.exec(cmd, function (error, stdout, stderr) {
-      console.info(stdout);
-
-      if (error) {
-        console.info(error);
-        if (cb) cb(error);
-      } else {
-        if (cb) cb();
-      }
-    });
   };
 
   return {
